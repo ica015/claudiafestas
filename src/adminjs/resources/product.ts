@@ -3,7 +3,7 @@ import { FeatureType, ResourceOptions } from "adminjs";
 import path from "path";
 
 export const ProductResourcesOptions: ResourceOptions = {
-    navigation: "Cadastro de Produtos",
+    navigation: "Manutenção de Produtos",
     editProperties: ['name','featured','uploadImage','description','variation','oldPrice','newPrice','minQuantity','inventoryQuantity','active'],
     listProperties: ['name', 'variation','inventoryQuantity', 'minQuantity','featured','active'],
     filterProperties: ['name', 'featured', 'active'],

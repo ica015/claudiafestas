@@ -1,7 +1,7 @@
 import { ResourceOptions } from "adminjs";
 
 export const AddressResourcesOptions:ResourceOptions = {
-    navigation: 'Atualização de Usuários',
+    navigation: 'Manutenção de Usuários',
     editProperties: ['usersId','mainAddress','postalCode','address','number','complement','neighborhood','city','state', 'additionalInformation','contactName','contactPhone'],
     filterProperties: ['usersId','contactName','postalCode', 'address','city','state', 'createdAt','updatedAt'],
     listProperties: ['usersId','contactName','address','city','state'],
