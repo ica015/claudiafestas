@@ -3,76 +3,76 @@ import { database } from "../database"
 
 export interface AddressAttributes {
     id: number
-    idUsuario:number
-    principal:boolean
-    nomeContato:string
-    telContato:string
-    logradouro:string
-    numero:number
-    complemento:string
-    bairro:string
-    cidade:string
-    estado:string
-    cep:string
-    infoAdicional:string
+    usersId:number
+    mainAddress:boolean
+    contactName:string
+    contactPhone:string
+    address:string
+    number:number
+    complement:string
+    neighborhood:string
+    city:string
+    state:string
+    postalCode:string
+    additionalInformation:string
 }
 
-export interface AddressCreationAttributes extends Optional<AddressAttributes, 'principal' | 'nomeContato' | 'telContato'| 'complemento' | 'infoAdicional'>{}
+export interface AddressCreationAttributes extends Optional<AddressAttributes, 'mainAddress' | 'contactName' | 'contactPhone'| 'complement' | 'additionalInformation'>{}
 
 export interface AddressInstance extends Model<AddressAttributes, AddressCreationAttributes>, AddressAttributes{}
 
-export const Address = database.define<AddressInstance, AddressAttributes>('enderecos',{
+export const Address = database.define<AddressInstance, AddressAttributes>('addresses',{
     id:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
     },
-    idUsuario:{
+    usersId:{
         type: DataTypes.INTEGER,
         allowNull: false,
-        references:{model:'usuarios', key:'id'},
+        references:{model:'users', key:'id'},
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
     },
-    principal:{
+    mainAddress:{
         type:DataTypes.BOOLEAN,
         defaultValue:false
     },
-    nomeContato:{
+    contactName:{
         type: DataTypes.STRING
     },
-    telContato:{
+    contactPhone:{
         type:DataTypes.STRING
     },
-    logradouro:{
+    address:{
         type:DataTypes.STRING,
         allowNull: false
     },
-    numero:{
+    number:{
         type:DataTypes.INTEGER,
         allowNull: false
     },
-    complemento:{
+    complement:{
         type:DataTypes.STRING
     },
-    bairro:{
+    neighborhood:{
         type:DataTypes.STRING,
         allowNull:false
     },
-    cidade:{
+    city:{
         type:DataTypes.STRING,
         allowNull: false
     },
-    estado:{
+    state:{
         type:DataTypes.STRING,
         allowNull:false
     },
-    cep:{
+    postalCode:{
         type:DataTypes.STRING,
         allowNull:false
     },
-    infoAdicional:{
+    additionalInformation:{
         type:DataTypes.STRING
     }
 })

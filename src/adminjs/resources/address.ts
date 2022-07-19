@@ -2,8 +2,8 @@ import { ResourceOptions } from "adminjs";
 
 export const AddressResourcesOptions:ResourceOptions = {
     navigation: 'Atualização de Usuários',
-    editProperties: ['idUsuario','principal','cep','logradouro','numero','complemento','bairro','cidade','estado', 'infoAdicional','nomeContato','telContato'],
-    filterProperties: ['idUsuario','nomeContato','cep', 'logradouro','cidade','estado', 'createdAt','updatedAt'],
-    listProperties: ['idUsuario','nomeContato','logradouro','cidade','estado'],
-    showProperties: ['idUsuario','nomeContato','logradouro','numero','cep','cidade','estado','createdAt','updatedAt']
+    editProperties: ['usersId','mainAddress','postalCode','address','number','complement','neighborhood','city','state', 'additionalInformation','contactName','contactPhone'],
+    filterProperties: ['usersId','contactName','postalCode', 'address','city','state', 'createdAt','updatedAt'],
+    listProperties: ['usersId','contactName','address','city','state'],
+    showProperties: ['usersId','contactName','address','number','postalCode','city','state','createdAt','updatedAt']
 }

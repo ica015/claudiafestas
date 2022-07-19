@@ -3,7 +3,7 @@
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('usuarios', {
+    await queryInterface.createTable('users', {
       id:{
         type: Sequelize.DataTypes.INTEGER,
         autoIncrement: true,
@@ -15,15 +15,15 @@ module.exports = {
         allowNull: false,
         unique: true
       },
-      senha: {
+      password: {
         type: Sequelize.DataTypes.STRING,
         allowNull: false
       },
-      nome:{
+      name:{
         type: Sequelize.DataTypes.STRING,
         allowNull: false
       },
-      apelido:{
+      nickname:{
         type: Sequelize.DataTypes.STRING
       },
       cpf:{
@@ -31,10 +31,10 @@ module.exports = {
         allowNull:false,
         unique: true
       },
-      telefone:{
+      phone:{
         type: Sequelize.DataTypes.STRING
       },
-      celular:{
+      celphone:{
         type: Sequelize.DataTypes.STRING
       },
       admin:{
@@ -53,6 +53,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('usuarios');
+    await queryInterface.dropTable('users');
   }
 };

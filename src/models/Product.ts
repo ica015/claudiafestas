@@ -3,63 +3,63 @@ import { database } from "../database"
 
 export interface ProductAttributes{
     id: number
-    nome: string
-    imagemUrl: string
-    destaque: boolean
-    descricao: Text
-    ativo:boolean
-    precoAntigo:number
-    precoNovo:number
-    qtdeMinima:number
-    qtdeEstoque:number
-    variacao:string
+    name: string
+    imageUrl: string
+    featured: boolean
+    description: Text
+    active:boolean
+    oldPrice:number
+    newPrice:number
+    minQuantity:number
+    inventoryQuantity:number
+    variation:string
 }
 
-export interface ProductCreationAttributes extends Optional<ProductAttributes, 'imagemUrl' | 'precoAntigo' | 'variacao'>{}
+export interface ProductCreationAttributes extends Optional<ProductAttributes, 'imageUrl' | 'oldPrice' | 'variation'>{}
 
 export interface ProductInstance extends Model<ProductAttributes, ProductCreationAttributes>, ProductAttributes{}
 
-export const Product = database.define<ProductInstance, ProductAttributes>('produtos', {
+export const Product = database.define<ProductInstance, ProductAttributes>('products', {
     id:{
         type: DataTypes.INTEGER,
         primaryKey:true,
         autoIncrement:true
     },
-    nome:{
+    name:{
         type: DataTypes.STRING,
         allowNull: false
     },
-    imagemUrl:{
+    imageUrl:{
         type:DataTypes.STRING
     },
-    destaque:{
+    featured:{
         type:DataTypes.BOOLEAN,
         defaultValue: false
     },
-    descricao:{
+    description:{
         type: DataTypes.TEXT,
         allowNull:false
     },
-    ativo:{
+    active:{
         type:DataTypes.BOOLEAN,
         defaultValue: true
     },
-    qtdeMinima:{
+    minQuantity:{
         type:DataTypes.INTEGER,
         allowNull:false
     },
-    qtdeEstoque:{
+    inventoryQuantity:{
         type:DataTypes.INTEGER,
         allowNull:false
     },
-    precoAntigo:{
+    oldPrice:{
         type:DataTypes.REAL
     },
-    precoNovo:{
+    newPrice:{
         type: DataTypes.REAL,
         allowNull:false
     },
-    variacao:{
+    variation:{
         type: DataTypes.STRING
     }
 })

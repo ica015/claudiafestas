@@ -2,57 +2,58 @@
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('enderecos', {
+    await queryInterface.createTable('addresses', {
       id: {
         type: Sequelize.DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
+        allowNull:false
       },
-      id_usuario:{
+      users_id:{
         type: Sequelize.DataTypes.INTEGER,
         allowNull: false,
-        references:{model: 'usuarios', key:'id'},
+        references:{model: 'users', key:'id'},
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
-      principal:{
+      main_address:{
         type: Sequelize.DataTypes.BOOLEAN,
         defaultValue: false
       },
-      nome_contato: {
+      contact_name: {
         type:Sequelize.DataTypes.STRING,
       },
-      tel_contato:{
+      contact_phone:{
         type:Sequelize.DataTypes.STRING
       },
-      logradouro:{
+      address:{
         type: Sequelize.DataTypes.STRING,
         allowNull: false,
       },
-      numero:{
+      number:{
         type: Sequelize.DataTypes.INTEGER,
         allowNull: false,
       },
-      complemento:{
+      complement:{
         type: Sequelize.DataTypes.STRING
       },
-      bairro:{
+      neighborhood:{
         type: Sequelize.DataTypes.STRING,
         allowNull: false,
       },
-      cidade:{
+      city:{
         type: Sequelize.DataTypes.STRING,
         allowNull: false,
       },
-      estado:{
+      state:{
         type: Sequelize.DataTypes.STRING,
         allowNull: false,
       },
-      cep:{
+      postal_code:{
         type: Sequelize.DataTypes.STRING,
         allowNull: false,
       },
-      info_adicional:{
+      additional_information:{
         type: Sequelize.DataTypes.STRING
       },
       created_at:{
@@ -68,6 +69,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('enderecos');
+    await queryInterface.dropTable('addresses');
   }
 };

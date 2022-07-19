@@ -2,47 +2,47 @@
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('produtos', { 
+    await queryInterface.createTable('products', { 
       id: {
         type: Sequelize.DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
       },
-      nome:{
+      name:{
         type:Sequelize.DataTypes.STRING,
         allowNull:false
       },
-      imagem_url:{
+      image_url:{
         type:Sequelize.DataTypes.STRING
       },
-      destaque:{
+      featured:{
         type: Sequelize.DataTypes.BOOLEAN,
         defaultValue: false,
       },
-      descricao:{
+      description:{
         type:Sequelize.DataTypes.TEXT,
         allowNull:false
       },
-      ativo:{
+      active:{
         type: Sequelize.DataTypes.BOOLEAN,
         defaultValue: true
       },
-      preco_antigo:{
+      old_price:{
         type:Sequelize.DataTypes.REAL
       },
-      preco_novo:{
+      new_price:{
         type: Sequelize.DataTypes.REAL,
         allowNull: false
       },
-      qtde_minima:{
+      min_quantity:{
         type:Sequelize.DataTypes.INTEGER,
         allowNull:false
       },
-      qtde_estoque:{
+      inventory_quantity:{
         type:Sequelize.DataTypes.INTEGER,
         allowNull:false
       },
-      variacao:{
+      variation:{
         type:Sequelize.DataTypes.STRING
       },
       created_at:{
@@ -58,6 +58,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('produtos');
+    await queryInterface.dropTable('products');
   }
 };

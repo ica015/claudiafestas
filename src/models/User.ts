@@ -4,20 +4,20 @@ import { database } from "../database"
 export interface UserAttributes{
     id: number
     email:string
-    senha: string
-    nome: string
-    apelido: string
+    password: string
+    name: string
+    nickname: string
     cpf: string
-    telefone:string
-    celular:string
+    phone:string
+    celphone:string
     admin: boolean
 }
 
-export interface UserCreationAttributes extends Optional<UserAttributes, 'id' | 'apelido' | 'telefone' | 'celular' | 'admin'>{}
+export interface UserCreationAttributes extends Optional<UserAttributes, 'id' | 'nickname' | 'phone' | 'celphone' | 'admin'>{}
 
 export interface UserInstance extends Model<UserAttributes, UserCreationAttributes>, UserAttributes{}
 
-export const User = database.define<UserInstance, UserAttributes>('usuarios',{
+export const User = database.define<UserInstance, UserAttributes>('users',{
     id:{
         type: DataTypes.INTEGER,
         primaryKey:true,
@@ -39,15 +39,15 @@ export const User = database.define<UserInstance, UserAttributes>('usuarios',{
             }
         }
     },
-    senha:{
+    password:{
         type: DataTypes.STRING,
         allowNull: false
     },
-    nome:{
+    name:{
         type: DataTypes.STRING,
         allowNull: false
     },
-    apelido:{
+    nickname:{
         type: DataTypes.STRING
     },
     cpf:{
@@ -55,10 +55,10 @@ export const User = database.define<UserInstance, UserAttributes>('usuarios',{
         allowNull: false,
         unique: true
     },
-    telefone:{
+    phone:{
         type: DataTypes.STRING
     },
-    celular:{
+    celphone:{
         type: DataTypes.STRING,
     },
     admin:{
