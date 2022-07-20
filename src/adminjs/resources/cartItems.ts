@@ -5,5 +5,5 @@ export const CartItemsResourceOptions:ResourceOptions = {
     editProperties: ['cartId','productId','quantity','variation'],
     filterProperties: ['id', 'cartId','productId', 'createdAt', 'updatedAt'],
     listProperties: ['id', 'cartId','productId','quantity','variation','createdAt','updatedAt'],
-    showProperties:['id', 'cartd','productId','quantity','variation', 'createdAt','updatedAt']
+    showProperties:['id', 'cartId','productId','quantity','variation', 'createdAt','updatedAt']
 }
