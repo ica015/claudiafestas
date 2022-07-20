@@ -4,10 +4,15 @@ import path from "path";
 
 export const ProductResourcesOptions: ResourceOptions = {
     navigation: "Manutenção de Produtos",
+    properties:{
+        description:{
+            type:'richtext'
+        }
+    },
     editProperties: ['name','featured','uploadImage','description','variation','oldPrice','newPrice','minQuantity','inventoryQuantity','active'],
     listProperties: ['name', 'variation','inventoryQuantity', 'minQuantity','featured','active'],
     filterProperties: ['name', 'featured', 'active'],
-    showProperties: ['id', 'name', 'imageUrl', 'variation','oldPrice','newPrice','inventoryQuantity', 'minQuantity','featured','createdAt','updatedAt']
+    showProperties: ['id', 'name', 'imageUrl','description', 'variation','oldPrice','newPrice','inventoryQuantity', 'minQuantity','featured','createdAt','updatedAt']
 }
 
 export const productResourceFeatures: FeatureType[] = [
