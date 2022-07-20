@@ -3,13 +3,15 @@ import AdminJsExpress from '@adminjs/express';
 import AdminjsSequelize from '@adminjs/sequelize';
 import { database } from "../database";
 import { AdminJsResources } from "../adminjs/resources";
+import { User } from "../models";
+import bcrypt from 'bcrypt';
 
 AdminJs.registerAdapter(AdminjsSequelize)
 
 export const adminjs = new AdminJs({
     databases:[database],
     resources: AdminJsResources,
-    rootPath: '/meuadmin',
+    rootPath: '/admin',
     branding:{
         companyName: 'Claudia Festas',
         logo:'/logo.png',
@@ -29,4 +31,23 @@ export const adminjs = new AdminJs({
     }
 })
 
-export const adminJsRouter = AdminJsExpress.buildRouter(adminjs)
+export const adminJsRouter = AdminJsExpress.buildAuthenticatedRouter(adminjs,{
+    authenticate: async (email, password) => {
+        const user = await User.findOne({where: { email: email } })
+        if (user) {
+            const matched = await bcrypt.compare(password, user.password)
+
+            if (matched && user.admin){
+                return user
+            }
+        }
+        return false
+    },
+    cookiePassword: 'senha-de-cookie'
+},
+    null,
+    {
+        resave: false,
+        saveUninitialized: false
+    }
+)

@@ -4,9 +4,9 @@ import bcrypt from 'bcrypt';
 
 export interface UserAttributes{
     id: number
+    name: string
     email:string
     password: string
-    name: string
     nickname: string
     cpf: string
     phone:string
@@ -23,6 +23,10 @@ export const User = database.define<UserInstance, UserAttributes>('users',{
         type: DataTypes.INTEGER,
         primaryKey:true,
         autoIncrement:true
+    },
+    name:{
+        type: DataTypes.STRING,
+        allowNull: false
     },
     email:{
         type: DataTypes.STRING,
@@ -41,10 +45,6 @@ export const User = database.define<UserInstance, UserAttributes>('users',{
         }
     },
     password:{
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    name:{
         type: DataTypes.STRING,
         allowNull: false
     },
