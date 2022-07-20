@@ -4,16 +4,23 @@ import { Product } from "./Product";
 import { Category } from './Category';
 import { Cart } from './Cart';
 import { Ask } from './Ask';
+import { Visit } from './Visit';
+import { CartItems } from "./CartItems";
 
-  User.hasMany(Address, {foreignKey: 'users_id'})
-  Address.belongsTo(User, {foreignKey: 'id'})
+User.hasMany(Address, {foreignKey: 'users_id'})
+Address.belongsTo(User, {foreignKey: 'id'})
 
-  User.hasMany(Cart)
-  Cart.belongsTo(User)
- // Cart.hasMany(Product, {foreignKey:'product_id'})
+User.hasMany(Cart)
+Cart.belongsTo(User)
+CartItems.hasMany(Product, {foreignKey:'id'})
+Product.belongsTo(CartItems, {foreignKey:'id'})
 
- Product.hasMany(Ask)
- Ask.belongsTo(Product)
+Product.hasMany(Ask)
+Ask.belongsTo(Product)
+Product.hasMany(Visit)
+User.hasMany(Visit)
+Visit.belongsTo(Product)
+Visit.belongsTo(User)
 
 export {
     User, 
@@ -21,5 +28,7 @@ export {
     Product,
     Category,
     Cart,
-    Ask
+    CartItems,
+    Ask,
+    Visit
 }

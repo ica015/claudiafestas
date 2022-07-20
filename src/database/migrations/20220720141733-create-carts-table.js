@@ -15,20 +15,6 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: "CASCADE"
       },
-      product_id:{
-        type: Sequelize.DataTypes.INTEGER,
-        allowNull: false,
-        references:{model:"products", key:'id'},
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE"
-      },
-      quantity:{
-        type: Sequelize.DataTypes.INTEGER,
-        allowNull:false
-      },
-      variation:{
-        type: Sequelize.DataTypes.STRING
-      },
       created_at:{
         type:Sequelize.DataTypes.DATE,
         allowNull: false

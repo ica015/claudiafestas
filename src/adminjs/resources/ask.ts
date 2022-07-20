@@ -5,16 +5,16 @@ export const AskResourceOptions:ResourceOptions = {
     properties:{
         question:{
             type:'textarea',
-            // isDisabled:true
+            isDisabled:true
         },
         response:{
             type:'richtext'
         },
         userId:{
-            // isDisabled: true
+            isDisabled: true
         },
         productId:{
-            // isDisabled: true
+            isDisabled: true
         }
     },
     filterProperties:['userId', 'productId','question', 'needAnswer','createdAt','updatedAt'],
