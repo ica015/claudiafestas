@@ -21,7 +21,9 @@ export const adminjs = new AdminJs({
     branding:brandingOptions
 })
 
-export const adminJsRouter = AdminJsExpress.buildAuthenticatedRouter(adminjs,authenticatorOptions,
+export const adminJsRouter = AdminJsExpress.buildAuthenticatedRouter(
+    adminjs,
+    authenticatorOptions,
     null,
     {
         resave: false,

@@ -8,14 +8,9 @@ export interface ProductAttributes{
     featured: boolean
     description: Text
     active:boolean
-    oldPrice:number
-    newPrice:number
-    minQuantity:number
-    inventoryQuantity:number
-    variation:string
 }
 
-export interface ProductCreationAttributes extends Optional<ProductAttributes, 'imageUrl' | 'oldPrice' | 'variation'>{}
+export interface ProductCreationAttributes extends Optional<ProductAttributes, 'imageUrl'>{}
 
 export interface ProductInstance extends Model<ProductAttributes, ProductCreationAttributes>, ProductAttributes{}
 
@@ -43,23 +38,5 @@ export const Product = database.define<ProductInstance, ProductAttributes>('prod
     active:{
         type:DataTypes.BOOLEAN,
         defaultValue: true
-    },
-    minQuantity:{
-        type:DataTypes.INTEGER,
-        allowNull:false
-    },
-    inventoryQuantity:{
-        type:DataTypes.INTEGER,
-        allowNull:false
-    },
-    oldPrice:{
-        type:DataTypes.REAL
-    },
-    newPrice:{
-        type: DataTypes.REAL,
-        allowNull:false
-    },
-    variation:{
-        type: DataTypes.STRING
     }
 })
