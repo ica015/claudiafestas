@@ -1,4 +1,5 @@
-import { where } from "sequelize/types"
+import { Association, where } from "sequelize/types"
+import { catProductsResourceOptions } from "../adminjs/resources/catproducts"
 import { Category, CategoryProduct, Product } from "../models"
 
 export const categoryService = {
@@ -19,17 +20,31 @@ export const categoryService = {
     },
     findByIdwithProducts: async (id: string) =>{
         const CategoryWithProducts = await Category.findByPk(id,{
-            
-            attributes:['id','name'],
-            include:[
-                {model: Category, as:'catproducts'},
-                {model: Product, as:'prodcategories'},
-                {
-                    where:{$active$: true}
-                }
-            ]
+             attributes:['id','name', 'active'],
+            include:{
+                association: 'catproducts'
             }
-        )
-        return CategoryWithProducts
+        })
+        if (CategoryWithProducts?.active){
+            const CategoryInfo = {
+                'Id': CategoryWithProducts.id,
+                'Categoria': CategoryWithProducts.name}
+            const ProductDetail = await CategoryProduct.findAll({
+                attributes: ['categoryId'],
+                where:{
+                    categoryId: id
+                },
+                include:{
+                    association:'product',
+                    where:{
+                        $active$:true
+                    }
+                }
+            })
+            return [CategoryInfo, ProductDetail]
+        }else{
+            return 'Categoria Não enontrada ou Inativa'
+        }
+        // return CategoryWithProducts
     }
 }

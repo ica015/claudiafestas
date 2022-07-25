@@ -25,10 +25,10 @@ Options.belongsTo(Product)
 User.hasMany(Visit)
 Visit.belongsTo(Product)
 Visit.belongsTo(User)
-Category.hasMany(CategoryProduct)
-CategoryProduct.belongsTo(Category, {as:'catproducts'})
-Product.hasMany(CategoryProduct)
-CategoryProduct.belongsTo(Product, {as:'prodcategories'})
+Category.hasMany(CategoryProduct, {as:'catproducts'})
+CategoryProduct.belongsTo(Category)
+Product.hasMany(CategoryProduct, {as: 'product'})
+CategoryProduct.belongsTo(Product)
 
 export {
     User, 
