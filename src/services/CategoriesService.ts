@@ -1,20 +1,20 @@
 import { Association, where } from "sequelize/types"
 import { catProductsResourceOptions } from "../adminjs/resources/catproducts"
-import { Category, CategoryProduct, Product } from "../models"
+import { Category, CategoryProduct } from "../models"
 
 export const categoryService = {
-    findAllPaginated: async (pag:number, porPag:number) =>{
-        const offset = (pag - 1)* porPag
+    findAllPaginated: async (page:number, perPage:number) =>{
+        const offset = (page - 1)* perPage
         const {count, rows} = await Category.findAndCountAll({
             where:{$active$:true},
-            attributes:['name'],
-            limit: porPag,
+            attributes:['id', 'name'],
+            limit: perPage,
             offset
         })
         return {
             categories: rows,
-            pag,
-            porPag,
+            page,
+            perPage,
             total: count
         }
     },

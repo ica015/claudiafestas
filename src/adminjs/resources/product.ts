@@ -10,8 +10,8 @@ export const ProductResourcesOptions: ResourceOptions = {
         }
     },
     editProperties: ['name','featured','uploadImage','description','active'],
-    listProperties: ['name', 'featured','active'],
-    filterProperties: ['name', 'featured', 'active'],
+    listProperties: ['id','name', 'featured','active'],
+    filterProperties: ['id','name', 'featured', 'active'],
     showProperties: ['id', 'name', 'imageUrl','description', 'featured', 'active','createdAt','updatedAt']
 }
 

@@ -3,7 +3,7 @@ import { getPaginationParams } from "../helpers/getPaginationParams";
 import { categoryService } from "../services/CategoriesService";
 
 export const catetegoriesController = {
-    //GET /categories
+    //GET /categorias
     index: async (req: Request, res: Response) =>{
         const [page, perPage] = getPaginationParams(req.query);
         try {
@@ -15,7 +15,7 @@ export const catetegoriesController = {
             }
         }        
     },
-    //GET /categories/:id
+    //GET /categoria/:id
     show: async (req: Request, res: Response) => {
         const {id} = req.params
         const [page, perPage] = getPaginationParams(req.params)
