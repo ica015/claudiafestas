@@ -25,5 +25,14 @@ export const ProductsService = {
         }else{
             return ('Produto não encontrado')
         }
+    },
+    getRandomFeaturesProducts: async () =>{
+        const featuredProducts = await Product.findAll({
+            where:{
+                featured:true,
+                active: true},
+            order: fn('RANDOM')
+        })
+        return featuredProducts.slice(0,5)
     }
 }

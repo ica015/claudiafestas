@@ -15,6 +15,18 @@ export const productsController = {
             }
         }
     },
+    //GET '/produtos/destaques'
+    features: async(req: Request, res:Response) =>{
+
+        try {
+            const featuredProducts = await ProductsService.getRandomFeaturesProducts()
+            return res.json(featuredProducts)
+        } catch (err) {
+            if (err instanceof Error){
+                return res.status(400).json({message: err.message})
+            }
+        }
+    },
     //GET '/produto/:id'
     show: async(req: Request, res:Response) =>{
         const { id } = req.params

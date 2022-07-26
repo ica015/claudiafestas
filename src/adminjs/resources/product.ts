@@ -7,7 +7,13 @@ export const ProductResourcesOptions: ResourceOptions = {
     properties:{
         description:{
             type:'richtext'
-        }
+        },
+        // uploadImage:{
+        //     isArray: true
+        // },
+        // imageUrl:{
+        //     isArray: true
+        // }
     },
     editProperties: ['name','featured','uploadImage','description','active'],
     listProperties: ['id','name', 'featured','active'],
@@ -24,9 +30,9 @@ export const productResourceFeatures: FeatureType[] = [
         },
         properties:{
             key: 'imageUrl',
-            file: 'uploadImage',
+            file: 'uploadImage'
         },
         //multiple: true,
-        uploadPath: (record, filename) => `imagens/produto-${record.get('id')}/${filename}`
+        uploadPath: (record, filename) => `imagens/produto-${record.get('id')}/${filename}`,
     })
 ]
