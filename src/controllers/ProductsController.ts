@@ -27,6 +27,18 @@ export const productsController = {
             }
         }
     },
+    //GET '/produtos/destaques'
+    lastUploaded: async(req: Request, res:Response) =>{
+
+        try {
+            const lastUploadedProducts = await ProductsService.getLastUploadedProducts()
+            return res.json(lastUploadedProducts)
+        } catch (err) {
+            if (err instanceof Error){
+                return res.status(400).json({message: err.message})
+            }
+        }
+    },
     //GET '/produto/:id'
     show: async(req: Request, res:Response) =>{
         const { id } = req.params
@@ -38,5 +50,20 @@ export const productsController = {
                 return res.status(400).json({message: err.message})
             }
         }
+    },
+    //GET procustos/busca?produto=
+    findProduct: async (req:Request, res:Response) => {
+        const [page, perPage] = getPaginationParams(req.query)
+        const { produto } = req.query
+        try {
+            if (typeof produto !== 'string') throw new Error('O tipo de parametro deve ser um texto')
+            const findprod = await ProductsService.findByName(produto, page, perPage)
+            return res.json(findprod)
+        } catch (err) {
+            if (err instanceof Error){
+                return res.status(400).json({message: err.message})
+            }
+        }
     }
+    
 }

@@ -1,4 +1,4 @@
-import { fn } from "sequelize"
+import { fn, Op, where } from "sequelize"
 import { Product } from "../models"
 
 export const ProductsService = {
@@ -34,5 +34,42 @@ export const ProductsService = {
             order: fn('RANDOM')
         })
         return featuredProducts.slice(0,5)
+    },
+    getLastUploadedProducts: async () =>{
+        const featuredProducts = await Product.findAll({
+            limit: 10,
+            where:{
+                active: true},
+            order: [['createdAt', 'DESC']]
+        })
+        return featuredProducts
+    },
+    findByName: async (name: string, page:number, perPage:number) =>{
+        const offset = (page - 1)* perPage
+        const { count, rows} = await Product.findAndCountAll({
+            where:{
+                [Op.or]:[
+                    {
+                        name:{
+                            [Op.iLike]: `%${name}%`
+                        }
+                    },
+                    // {
+                    //     description:{
+                    //         //[Op.iLike]: `%${name}%`
+                            
+                    //     }
+                    // }
+                ]
+            },
+            limit: perPage,
+            offset
+        })
+        return {
+            produtos: rows,
+            page,
+            perPage,
+            total: count
+        }
     }
 }
