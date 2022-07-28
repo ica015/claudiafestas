@@ -31,6 +31,9 @@ module.exports = {
         allowNull:false,
         unique: true
       },
+      birth:{
+        type: Sequelize.DataTypes.DATE
+      },
       phone:{
         type: Sequelize.DataTypes.STRING
       },

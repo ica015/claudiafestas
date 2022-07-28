@@ -2,21 +2,26 @@ import { DataTypes, Model, Optional } from "sequelize"
 import { database } from "../database";
 import bcrypt from 'bcrypt';
 
+type checkPasswordCallBack = (err?: Error | undefined, isSame?:boolean) => void
+
 export interface UserAttributes{
     id: number
     name: string
     email:string
     password: string
     nickname: string
+    birth: Date
     cpf: string
     phone:string
     celphone:string
     admin: boolean
 }
 
-export interface UserCreationAttributes extends Optional<UserAttributes, 'id' | 'nickname' | 'phone' | 'celphone' | 'admin'>{}
+export interface UserCreationAttributes extends Optional<UserAttributes, 'id' | 'nickname' | 'birth' | 'phone' | 'celphone' | 'admin'>{}
 
-export interface UserInstance extends Model<UserAttributes, UserCreationAttributes>, UserAttributes{}
+export interface UserInstance extends Model<UserAttributes, UserCreationAttributes>, UserAttributes{
+    checkPassword: (password: string, callbackfn: checkPasswordCallBack) => void
+}
 
 export const User = database.define<UserInstance, UserAttributes>('users',{
     id:{
@@ -51,6 +56,9 @@ export const User = database.define<UserInstance, UserAttributes>('users',{
     nickname:{
         type: DataTypes.STRING
     },
+    birth:{
+        type: DataTypes.DATE
+    },
     cpf:{
         type: DataTypes.STRING,
         allowNull: false,
@@ -75,3 +83,13 @@ export const User = database.define<UserInstance, UserAttributes>('users',{
         }
     }
 })
+
+User.prototype.checkPassword = function(password:string, callbackfn: checkPasswordCallBack){
+    bcrypt.compare(password, this.password, (err, isSame) =>{
+        if (err){
+            callbackfn(err)
+        }else{
+            callbackfn(err, isSame)
+        }
+    })
+}

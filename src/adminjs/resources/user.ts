@@ -6,6 +6,9 @@ export const userResourceOptions: ResourceOptions = {
         password:{
             type:'password'
         },
+        birth:{
+            type:'date'
+        },
         admin:{
             custom:{
                 default:true
@@ -18,8 +21,8 @@ export const userResourceOptions: ResourceOptions = {
             type:'phone'
         }
     },
-    editProperties: ['name', 'email', 'password', 'nickname', 'cpf', 'phone', 'celphone', 'admin'],
-    filterProperties: ['name', 'email', 'nickname', 'cpf', 'phone', 'celphone','admin', 'createdAt', 'updatedAt'],
+    editProperties: ['name', 'email', 'password', 'nickname', 'cpf', 'birth', 'phone', 'celphone', 'admin'],
+    filterProperties: ['name', 'email', 'nickname', 'cpf', 'birth', 'phone', 'celphone','admin', 'createdAt', 'updatedAt'],
     listProperties: ['name', 'email', 'nickname', 'cpf', 'admin'],
-    showProperties: ['id', 'name', 'email', 'nickname', 'cpf', 'phone', 'celphone', 'createdAt', 'updatedAt']
+    showProperties: ['id', 'name', 'email', 'nickname', 'cpf', 'birth', 'phone', 'celphone', 'createdAt', 'updatedAt']
 }

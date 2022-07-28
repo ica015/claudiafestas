@@ -7,6 +7,7 @@ import { productsController } from "./controllers/ProductsController"
 const router = express.Router()
 
 router.post('/cadastro', authController.register)
+router.post('/login', authController.login)
 
 router.get('/categorias', catetegoriesController.index)
 router.get('/categoria/:id', catetegoriesController.show)

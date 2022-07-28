@@ -55,8 +55,11 @@ export const ProductsService = {
                         }
                     },
                     // {
+                    //     description: `%${name}%`
+                    // }
+                    // {
                     //     description:{
-                    //         //[Op.iLike]: `%${name}%`
+                    //         [Op.substring]: toString(name)
                             
                     //     }
                     // }
