@@ -1,8 +1,8 @@
 import express  from "express"
-import { ReadableByteStreamController } from "stream/web"
 import { authController } from "./controllers/AuthController"
 import { catetegoriesController } from "./controllers/CategoryController"
 import { productsController } from "./controllers/ProductsController"
+import { ensureAuth } from "./middlewares/auth"
 
 const router = express.Router()
 
@@ -14,6 +14,7 @@ router.get('/categoria/:id', catetegoriesController.show)
 
 router.get('/', productsController.index)
 router.get('/produtos/destaque', productsController.features)
+// router.get('/produtos/destaque', ensureAuth, productsController.features) //rota protegida
 router.get('/produtos/lancamentos', productsController.lastUploaded)
 router.get('/produtos/busca', productsController.findProduct)
 router.get('/produto/:id', productsController.show)
