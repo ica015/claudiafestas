@@ -22,6 +22,7 @@ router.get('/produto/:id', productsController.show)
 
 router.get('/favoritos', ensureAuth, FavoriteController.index)
 router.post('/favoritos', ensureAuth, FavoriteController.save)
+router.delete('/favoritos/:id', ensureAuth, FavoriteController.delete)
 
 
 

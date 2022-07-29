@@ -1,5 +1,3 @@
-import { Association, where } from "sequelize/types"
-import { catProductsResourceOptions } from "../adminjs/resources/catproducts"
 import { Category, CategoryProduct } from "../models"
 
 export const categoryService = {
@@ -41,7 +39,10 @@ export const categoryService = {
                     }
                 }
             })
-            return [CategoryInfo, ProductDetail]
+            return {
+                CategoryInfo, 
+                Product: ProductDetail.map(detail => detail.product)
+            }
         }else{
             return 'Categoria Não enontrada ou Inativa'
         }
