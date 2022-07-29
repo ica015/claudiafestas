@@ -8,6 +8,7 @@ import { Visit } from './Visit';
 import { CartItems } from "./CartItems";
 import { Options } from "./Options";
 import { CategoryProduct } from './CategoryProduct'
+import { Favorite } from "./Favorite";
 
 User.hasMany(Address, {foreignKey: 'users_id'})
 Address.belongsTo(User, {foreignKey: 'id'})
@@ -16,6 +17,14 @@ User.hasMany(Cart)
 Cart.belongsTo(User)
 CartItems.hasMany(Product, {foreignKey:'id'})
 Product.belongsTo(CartItems, {foreignKey:'id'})
+
+Product.belongsToMany(User, {through: Favorite})
+User.belongsToMany(Product, {through: Favorite})
+User.hasMany(Favorite, {as: 'favoriteProducrts', foreignKey:'user_id'})
+Product.hasMany(Favorite, {as: 'favoriteUsers', foreignKey:'product_id'})
+
+Favorite.belongsTo(User)
+Favorite.belongsTo(Product)
 
 Product.hasMany(Ask)
 Ask.belongsTo(Product)
@@ -40,5 +49,6 @@ export {
     Cart,
     CartItems,
     Ask,
-    Visit
+    Visit,
+    Favorite
 }

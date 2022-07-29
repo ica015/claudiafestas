@@ -6,7 +6,7 @@ export interface ProductAttributes{
     name: string
     imageUrl: string
     featured: boolean
-    description: Text
+    description: string
     active:boolean
 }
 
@@ -32,7 +32,7 @@ export const Product = database.define<ProductInstance, ProductAttributes>('prod
         defaultValue: false
     },
     description:{
-        type: DataTypes.TEXT,
+        type: DataTypes.CHAR,
         allowNull:false
     },
     active:{

@@ -20,7 +20,7 @@ module.exports = {
         defaultValue: false,
       },
       description:{
-        type:Sequelize.DataTypes.TEXT,
+        type:Sequelize.DataTypes.VARCHAR,
         allowNull:false
       },
       active:{

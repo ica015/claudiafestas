@@ -30,7 +30,7 @@ export const Options = database.define<OptionsInstance, OptionsAttributes>('opti
         onDelete: "CASCADE"
     },
     description:{
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         allowNull:false
     },
     minQuantity:{
@@ -42,10 +42,10 @@ export const Options = database.define<OptionsInstance, OptionsAttributes>('opti
         allowNull:false
     },
     oldPrice:{
-        type:DataTypes.REAL
+        type:DataTypes.DECIMAL(10,2)
     },
     newPrice:{
-        type: DataTypes.REAL,
+        type: DataTypes.DECIMAL(10,2),
         allowNull:false
     },
     active:{

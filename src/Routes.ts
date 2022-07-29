@@ -1,6 +1,7 @@
 import express  from "express"
 import { authController } from "./controllers/AuthController"
 import { catetegoriesController } from "./controllers/CategoryController"
+import { FavoriteController } from "./controllers/FavoritesController"
 import { productsController } from "./controllers/ProductsController"
 import { ensureAuth } from "./middlewares/auth"
 
@@ -18,6 +19,8 @@ router.get('/produtos/destaque', productsController.features)
 router.get('/produtos/lancamentos', productsController.lastUploaded)
 router.get('/produtos/busca', productsController.findProduct)
 router.get('/produto/:id', productsController.show)
+
+router.post('/favoritos', ensureAuth, FavoriteController.save)
 
 
 
