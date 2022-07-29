@@ -3,6 +3,19 @@ import { authenticatedRequest } from "../middlewares/auth";
 import { FavoriteServices } from "../services/FavoriteService";
 
 export const FavoriteController = {
+    //GET /favoritos
+    index: async (req: authenticatedRequest, res: Response) =>{
+        const userId = req.user!.id
+
+        try {
+            const favorites = await FavoriteServices.findByUserId(userId)
+            return res.status(201).json(favorites)
+        } catch (err) {
+            if (err instanceof Error){
+                return res.status(400).json({message: err.message})
+            }
+        }
+    },
     //POST /favoritos
     save: async (req: authenticatedRequest, res: Response)=>{
         const userId = req.user!.id

@@ -19,9 +19,10 @@ CartItems.hasMany(Product, {foreignKey:'id'})
 Product.belongsTo(CartItems, {foreignKey:'id'})
 
 Product.belongsToMany(User, {through: Favorite})
+Product.hasMany(Favorite, {as: 'favoriteUsers', foreignKey:'product_id'})
+
 User.belongsToMany(Product, {through: Favorite})
 User.hasMany(Favorite, {as: 'favoriteProducrts', foreignKey:'user_id'})
-Product.hasMany(Favorite, {as: 'favoriteUsers', foreignKey:'product_id'})
 
 Favorite.belongsTo(User)
 Favorite.belongsTo(Product)

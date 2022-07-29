@@ -20,6 +20,7 @@ router.get('/produtos/lancamentos', productsController.lastUploaded)
 router.get('/produtos/busca', productsController.findProduct)
 router.get('/produto/:id', productsController.show)
 
+router.get('/favoritos', ensureAuth, FavoriteController.index)
 router.post('/favoritos', ensureAuth, FavoriteController.save)
 
 
