@@ -9,6 +9,7 @@ import { CartItems } from "./CartItems";
 import { Options } from "./Options";
 import { CategoryProduct } from './CategoryProduct'
 import { Favorite } from "./Favorite";
+import { Like } from "./Like";
 
 User.hasMany(Address, {foreignKey: 'users_id'})
 Address.belongsTo(User, {foreignKey: 'id'})
@@ -19,10 +20,12 @@ CartItems.hasMany(Product, {foreignKey:'id'})
 Product.belongsTo(CartItems, {foreignKey:'id'})
 
 Product.belongsToMany(User, {through: Favorite})
+Product.belongsToMany(User, {through: Like})
 Product.hasMany(Favorite, {as: 'favoriteUsers', foreignKey:'product_id'})
 
 User.belongsToMany(Product, {through: Favorite})
-User.hasMany(Favorite, {as: 'favoriteProducrts', foreignKey:'user_id'})
+User.belongsToMany(Product, {through: Like})
+User.hasMany(Favorite, {as: 'favoriteProducts', foreignKey:'user_id'})
 
 Favorite.belongsTo(User)
 Favorite.belongsTo(Product)
@@ -35,10 +38,23 @@ Options.belongsTo(Product)
 User.hasMany(Visit)
 Visit.belongsTo(Product)
 Visit.belongsTo(User)
-Category.hasMany(CategoryProduct, {as:'catproducts'})
-CategoryProduct.belongsTo(Category)
-Product.hasMany(CategoryProduct, {as: 'product'})
+
+Product.belongsToMany(Category, {through: CategoryProduct})
+Product.hasMany(CategoryProduct, {as: 'prodcat', foreignKey: 'product_id'})
+
 CategoryProduct.belongsTo(Product)
+CategoryProduct.belongsTo(Category)
+
+Category.belongsToMany(Product, {through: CategoryProduct})
+Category.hasMany(CategoryProduct, {as: 'catprod', foreignKey: 'category_id'})
+
+
+
+// Category.hasMany(CategoryProduct, {as:'catproducts'})
+// CategoryProduct.belongsTo(Category)
+// Product.hasMany(CategoryProduct, {as: 'product'})
+// CategoryProduct.belongsTo(Product)
+
 
 export {
     User, 
@@ -51,5 +67,6 @@ export {
     CartItems,
     Ask,
     Visit,
-    Favorite
+    Favorite,
+    Like
 }

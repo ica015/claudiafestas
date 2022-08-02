@@ -6,7 +6,7 @@ export const dashboardOptions: {
     component?:string
 } = {
     component:AdminJs.bundle('./components/Dashboard'),
-    handler: async (rec, res, context) =>{
+    handler: async (req, res, context) =>{
         const products = await Product.count({where:{active:true}});
         const standardUsers = await User.count({where:{admin:false}});
         const totalAsks = await Ask.count()

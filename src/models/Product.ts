@@ -1,5 +1,7 @@
 import { DataTypes, Model, Optional } from "sequelize"
 import { database } from "../database"
+import { CategoryInstance } from "./Category"
+import { CategoryProductInstance } from "./CategoryProduct"
 
 export interface ProductAttributes{
     id: number
@@ -12,7 +14,10 @@ export interface ProductAttributes{
 
 export interface ProductCreationAttributes extends Optional<ProductAttributes, 'imageUrl'>{}
 
-export interface ProductInstance extends Model<ProductAttributes, ProductCreationAttributes>, ProductAttributes{}
+export interface ProductInstance extends Model<ProductAttributes, ProductCreationAttributes>, ProductAttributes{
+    // catprod: CategoryProductInstance,
+    // category?: CategoryInstance
+}
 
 export const Product = database.define<ProductInstance, ProductAttributes>('products', {
     id:{

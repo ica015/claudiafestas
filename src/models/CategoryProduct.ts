@@ -3,24 +3,17 @@ import { database } from "../database"
 import { ProductInstance } from "./Product"
 
 export interface CategoryProductAttributes{
-    id: number
     categoryId:number
     productId:number
 }
 
-export interface CategoryProductCreationAttribute extends Optional<CategoryProductAttributes, 'id'>{}
-export interface CategoryProductInstance extends Model<CategoryProductAttributes, CategoryProductCreationAttribute>,CategoryProductAttributes{
+export interface CategoryProductInstance extends Model<CategoryProductAttributes>,CategoryProductAttributes{
     product?: ProductInstance
 }
 export const CategoryProduct = database.define<CategoryProductInstance, CategoryProductAttributes>('catproducts', {
-    id:{
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
-    },
     categoryId:{
         type:DataTypes.INTEGER,
+        primaryKey: true,
         allowNull:false,
         references:{model:"categories", key:"id"},
         onUpdate: "CASCADE",
@@ -28,6 +21,7 @@ export const CategoryProduct = database.define<CategoryProductInstance, Category
     },
     productId:{
         type:DataTypes.INTEGER,
+        primaryKey: true,
         allowNull:false,
         references:{model:"products", key:"id"},
         onUpdate: "CASCADE",

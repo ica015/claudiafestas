@@ -2,6 +2,7 @@ import express  from "express"
 import { authController } from "./controllers/AuthController"
 import { catetegoriesController } from "./controllers/CategoryController"
 import { FavoriteController } from "./controllers/FavoritesController"
+import { LikeController } from "./controllers/LikeController"
 import { productsController } from "./controllers/ProductsController"
 import { ensureAuth } from "./middlewares/auth"
 
@@ -24,6 +25,8 @@ router.get('/favoritos', ensureAuth, FavoriteController.index)
 router.post('/favoritos', ensureAuth, FavoriteController.save)
 router.delete('/favoritos/:id', ensureAuth, FavoriteController.delete)
 
+router.post('/like', ensureAuth, LikeController.save)
+router.delete('/like/:id', ensureAuth, LikeController.delete)
 
 
 export { router };
