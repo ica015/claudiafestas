@@ -16,9 +16,9 @@ router.get('/categoria/:id', catetegoriesController.show)
 
 router.get('/', productsController.index)
 router.get('/produtos/destaque', productsController.features)
-// router.get('/produtos/destaque', ensureAuth, productsController.features) //rota protegida
 router.get('/produtos/lancamentos', productsController.lastUploaded)
 router.get('/produtos/busca', productsController.findProduct)
+router.get('/produtos/populares', productsController.popular)
 router.get('/produto/:id', productsController.show)
 
 router.get('/favoritos', ensureAuth, FavoriteController.index)

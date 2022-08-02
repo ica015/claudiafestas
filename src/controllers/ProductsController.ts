@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { getPaginationParams } from "../helpers/getPaginationParams";
 import { authenticatedRequest } from "../middlewares/auth";
+import { Product } from "../models";
 import { FavoriteServices } from "../services/FavoriteService";
 import { LikeService } from "../services/LikeService";
 import { ProductsService } from "../services/ProductsService";
@@ -70,6 +71,17 @@ export const productsController = {
             if (typeof produto !== 'string') throw new Error('O tipo de parametro deve ser um texto')
             const findprod = await ProductsService.findByName(produto, page, perPage)
             return res.json(findprod)
+        } catch (err) {
+            if (err instanceof Error){
+                return res.status(400).json({message: err.message})
+            }
+        }
+    },
+    //GET /produtos/populares
+    popular: async (req: Request, res: Response)=>{
+        try {
+            const topTen = await ProductsService.getTopTenByLikes()
+            return res.json(topTen)
         } catch (err) {
             if (err instanceof Error){
                 return res.status(400).json({message: err.message})
