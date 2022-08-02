@@ -4,6 +4,7 @@ import { catetegoriesController } from "./controllers/CategoryController"
 import { FavoriteController } from "./controllers/FavoritesController"
 import { LikeController } from "./controllers/LikeController"
 import { productsController } from "./controllers/ProductsController"
+import { usersController } from "./controllers/UserController"
 import { ensureAuth } from "./middlewares/auth"
 
 const router = express.Router()
@@ -28,5 +29,6 @@ router.delete('/favoritos/:id', ensureAuth, FavoriteController.delete)
 router.post('/like', ensureAuth, LikeController.save)
 router.delete('/like/:id', ensureAuth, LikeController.delete)
 
+router.get('/usuario/dados',ensureAuth , usersController.show)
 
 export { router };
