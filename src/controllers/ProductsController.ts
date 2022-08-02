@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
 import { getPaginationParams } from "../helpers/getPaginationParams";
+import { authenticatedRequest } from "../middlewares/auth";
+import { FavoriteServices } from "../services/FavoriteService";
+import { LikeService } from "../services/LikeService";
 import { ProductsService } from "../services/ProductsService";
 
 export const productsController = {
@@ -41,10 +44,18 @@ export const productsController = {
     },
     //GET '/produto/:id'
     show: async(req: Request, res:Response) =>{
-        const { id } = req.params
+        const userId = req.body.id //definir melhor onde será encontrada a informação do userId
+        const productId = req.params.id
         try {
-            const showProduct = await ProductsService.findById(id)
-            return res.json(showProduct)
+            const showProduct = await ProductsService.findById(productId)
+            if (!showProduct) return res.status(404).json({message: 'Produto não encontrado'})
+            
+            if (!userId) return res.json({showProduct, liked:false, favorited:false})
+
+            const liked = await LikeService.isLiked(userId, Number(productId))
+            const favorited = await FavoriteServices.isFavorited(userId, Number(productId))
+            return res.json({ ...showProduct.get() , liked, favorited})
+
         } catch (err) {
             if (err instanceof Error){
                 return res.status(400).json({message: err.message})

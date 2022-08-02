@@ -22,9 +22,10 @@ export const ProductsService = {
         })
         if (showProduct?.active){
             return showProduct
-        }else{
-            return ('Produto não encontrado')
         }
+        // else{
+        //     return ('Produto não encontrado')
+        // }
     },
     getRandomFeaturesProducts: async () =>{
         const featuredProducts = await Product.findAll({
