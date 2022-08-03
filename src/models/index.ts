@@ -19,6 +19,9 @@ Cart.belongsTo(User)
 CartItems.hasMany(Product, {foreignKey:'id'})
 Product.belongsTo(CartItems, {foreignKey:'id'})
 
+Cart.hasMany(CartItems, {as:'cartitems'})
+CartItems.belongsTo(Cart)
+
 Product.belongsToMany(User, {through: Favorite})
 Product.belongsToMany(User, {through: Like})
 Product.hasMany(Favorite, {as: 'favoriteUsers', foreignKey:'product_id'})
@@ -46,7 +49,7 @@ CategoryProduct.belongsTo(Product)
 CategoryProduct.belongsTo(Category)
 
 Category.belongsToMany(Product, {through: CategoryProduct})
-Category.hasMany(CategoryProduct, {as: 'catprod', foreignKey: 'category_id'})
+Category.hasMany(CategoryProduct, {as: 'catproducts', foreignKey: 'category_id'})
 
 
 

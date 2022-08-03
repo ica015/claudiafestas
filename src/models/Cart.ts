@@ -3,10 +3,11 @@ import { database } from "../database"
 
 export interface CartAttributes{
     id: number
-    userId: number
+    userId: number,
+    status: 'aberto' | 'fechado'
 }
 
-export interface CartCreationAttributes extends Optional<CartAttributes, 'id'>{}
+export interface CartCreationAttributes extends Optional<CartAttributes, 'id' | 'status'>{}
 export interface CartInstance extends Model<CartAttributes, CartCreationAttributes>,CartAttributes{}
 
 export const Cart = database.define<CartInstance, CartAttributes>('carts',{
@@ -21,5 +22,10 @@ export const Cart = database.define<CartInstance, CartAttributes>('carts',{
         references:{model:"users", key:"id"},
         onUpdate: "CASCADE",
         onDelete: "CASCADE"
+    },
+    status:{
+        type: DataTypes.STRING,
+        allowNull:false,
+        defaultValue: 'aberto'
     }
 })
