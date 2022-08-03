@@ -2,10 +2,12 @@ import express from 'express';
 import { database } from './database';
 import { adminjs, adminJsRouter } from './config/adminJs';
 import { router } from './Routes'
+import cors from 'cors'
 
 
 const app = express();
 
+app.use(cors())
 app.use(express.json())
 app.use(router)
 app.use(express.static('public'));
