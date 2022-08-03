@@ -35,5 +35,24 @@ export const usersController = {
             }
         }
 
+    },
+    // PUT /usuario/atualizar_senha
+    updatePassword: async (req:authenticatedRequest, res: Response)=>{
+        const user = req.user!
+        const { currentPassword, newPassword } = req.body
+        user.checkPassword(currentPassword, async (err, isSame)=>{
+            try {
+                if (err) throw new Error("Erro de verificação")
+                if (!isSame) throw new Error ("Senha atual incorreta")
+
+                await userService.updatePassword(user.id, newPassword)
+                return res.status(204).send()
+            } catch (err) {
+                if (err instanceof Error){
+                    res.status(400).json({message: err.message})
+                }
+            }
+        })
     }
 }
+

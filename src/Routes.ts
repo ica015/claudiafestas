@@ -31,6 +31,6 @@ router.delete('/like/:id', ensureAuth, LikeController.delete)
 
 router.get('/usuario/dados',ensureAuth , usersController.show)
 router.put('/usuario/dados',ensureAuth , usersController.update)
-router.put('/usuario/atualizar_senha',ensureAuth , usersController.show)
+router.put('/usuario/atualizar_senha',ensureAuth , usersController.updatePassword)
 
 export { router };
