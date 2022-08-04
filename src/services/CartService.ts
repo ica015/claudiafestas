@@ -35,5 +35,17 @@ export const CartServices = {
                 cartId
             }
         })
-    }
+    },
+    updateQuantityItem: async (newQuantity: number, id:number, cartId:number) =>{
+        const [affectedRows, updateItem] = await CartItems.update({
+            quantity: newQuantity
+        },{
+            where:{
+                id,
+                cartId
+            },
+            returning:true
+        })
+        return updateItem[0]
+    } 
 }

@@ -37,4 +37,7 @@ router.put('/usuario/atualizar_senha',ensureAuth , usersController.updatePasswor
 router.get('/carrinho', ensureAuth, CartController.listCart)
 router.post('/carrinho', ensureAuth, CartController.novoProduto)
 router.delete('/carrinho/remover_item/:id', ensureAuth, CartController.removerItem)
+router.put('/carrinho', ensureAuth, CartController.updateQuantityItem)
+
+
 export { router };
