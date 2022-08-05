@@ -6,6 +6,10 @@ export const userService = {
         const user = await User.findOne({
             where:{
                 email
+            },
+            include:{
+                association:"Address",
+                order:[['updated_at', 'DESC']]
             }
         })
         return user

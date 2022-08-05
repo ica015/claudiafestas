@@ -19,6 +19,9 @@ export const ProductsService = {
     },
     findById: async (id: string) =>{
         const showProduct = await Product.findByPk(id,{
+            include:{
+                association: "options"
+            }
         })
         if (showProduct?.active){
             return showProduct

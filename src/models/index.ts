@@ -11,8 +11,8 @@ import { CategoryProduct } from './CategoryProduct'
 import { Favorite } from "./Favorite";
 import { Like } from "./Like";
 
-User.hasMany(Address, {foreignKey: 'users_id'})
-Address.belongsTo(User, {foreignKey: 'id'})
+User.hasMany(Address, {as:'Address', foreignKey: 'user_id'})
+Address.belongsTo(User)
 
 User.hasMany(Cart)
 Cart.belongsTo(User)

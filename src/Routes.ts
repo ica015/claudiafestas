@@ -1,4 +1,5 @@
 import express  from "express"
+import { AddressController } from "./controllers/AddressController"
 import { authController } from "./controllers/AuthController"
 import { CartController } from "./controllers/CartController"
 import { catetegoriesController } from "./controllers/CategoryController"
@@ -33,11 +34,16 @@ router.delete('/like/:id', ensureAuth, LikeController.delete)
 router.get('/usuario/dados',ensureAuth , usersController.show)
 router.put('/usuario/dados',ensureAuth , usersController.update)
 router.put('/usuario/atualizar_senha',ensureAuth , usersController.updatePassword)
+router.post('/usuario/endereco', ensureAuth, AddressController.create)
+router.get('/usuario/endereco', ensureAuth, AddressController.show)
+router.put('/usuario/endereco', ensureAuth, AddressController.update)
+router.delete('/usuario/endereco/:id', ensureAuth, AddressController.delete)
 
 router.get('/carrinho', ensureAuth, CartController.listCart)
 router.post('/carrinho', ensureAuth, CartController.novoProduto)
 router.delete('/carrinho/remover_item/:id', ensureAuth, CartController.removerItem)
 router.put('/carrinho', ensureAuth, CartController.updateQuantityItem)
+
 
 
 export { router };

@@ -3,7 +3,7 @@ import { database } from "../database"
 
 export interface AddressAttributes {
     id: number
-    usersId:number
+    userId:number
     mainAddress:boolean
     contactName:string
     contactPhone:string
@@ -17,7 +17,7 @@ export interface AddressAttributes {
     additionalInformation:string
 }
 
-export interface AddressCreationAttributes extends Optional<AddressAttributes, 'mainAddress' | 'contactName' | 'contactPhone'| 'complement' | 'additionalInformation'>{}
+export interface AddressCreationAttributes extends Optional<AddressAttributes, 'id' | 'mainAddress' | 'contactName' | 'contactPhone'| 'complement' | 'additionalInformation'>{}
 
 export interface AddressInstance extends Model<AddressAttributes, AddressCreationAttributes>, AddressAttributes{}
 
@@ -28,7 +28,7 @@ export const Address = database.define<AddressInstance, AddressAttributes>('addr
         autoIncrement: true,
         allowNull: false
     },
-    usersId:{
+    userId:{
         type: DataTypes.INTEGER,
         allowNull: false,
         references:{model:'users', key:'id'},
