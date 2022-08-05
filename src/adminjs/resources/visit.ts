@@ -19,5 +19,5 @@ export const VisitResourceOptions:ResourceOptions = {
     editProperties:['userId', 'productId', 'createdAt', 'updatedAt'],
     listProperties:['userId', 'productId', 'createdAt', 'updatedAt'],
     filterProperties:['userId', 'productId', 'createdAt', 'updatedAt'],
-    showProperties:['id','userId', 'productId', 'createdAt', 'updatedAt']
+    showProperties:['userId', 'productId', 'createdAt', 'updatedAt']
 } 

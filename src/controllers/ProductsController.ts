@@ -5,6 +5,7 @@ import { Product } from "../models";
 import { FavoriteServices } from "../services/FavoriteService";
 import { LikeService } from "../services/LikeService";
 import { ProductsService } from "../services/ProductsService";
+import { visitedServices } from "../services/visitedService";
 
 export const productsController = {
     // GET '/'
@@ -51,10 +52,17 @@ export const productsController = {
             const showProduct = await ProductsService.findById(productId)
             if (!showProduct) return res.status(404).json({message: 'Produto não encontrado'})
             
-            if (!userId) return res.json({showProduct, liked:false, favorited:false})
+            if (!userId) return res.json({...showProduct.get(), liked:false, favorited:false})
 
             const liked = await LikeService.isLiked(userId, Number(productId))
             const favorited = await FavoriteServices.isFavorited(userId, Number(productId))
+            
+            // //salva o produto no histórico de visitas do usuário
+            const [visited, createdNew] = await visitedServices.create(userId, Number(productId))
+            if (!createdNew){
+                await visitedServices.update(userId, Number(productId))
+            }
+
             return res.json({ ...showProduct.get() , liked, favorited})
 
         } catch (err) {

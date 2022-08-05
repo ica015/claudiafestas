@@ -7,6 +7,7 @@ import { FavoriteController } from "./controllers/FavoritesController"
 import { LikeController } from "./controllers/LikeController"
 import { productsController } from "./controllers/ProductsController"
 import { usersController } from "./controllers/UserController"
+import { VisitedController } from "./controllers/VisitedController"
 import { ensureAuth } from "./middlewares/auth"
 
 const router = express.Router()
@@ -23,6 +24,8 @@ router.get('/produtos/lancamentos', productsController.lastUploaded)
 router.get('/produtos/busca', productsController.findProduct)
 router.get('/produtos/populares', productsController.popular)
 router.get('/produto/:id', productsController.show)
+
+router.get('/historico', ensureAuth, VisitedController.index )
 
 router.get('/favoritos', ensureAuth, FavoriteController.index)
 router.post('/favoritos', ensureAuth, FavoriteController.save)
