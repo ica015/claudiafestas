@@ -2,11 +2,11 @@
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('visits', { 
+    await queryInterface.createTable('purchases', { 
       id: {
-        type: Sequelize.DataTypes.INTEGER,
-        allowNull: false,
+        type:Sequelize.DataTypes.INTEGER,
         primaryKey: true,
+        allowNull: false,
         autoIncrement: true
       },
       user_id:{
@@ -16,12 +16,33 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE"
       },
-      product_id:{
+      cart_id:{
         type: Sequelize.DataTypes.INTEGER,
         allowNull: false,
-        references:{model:'products', key:'id'},
+        references:{model:'carts', key:'id'},
         onUpdate: "CASCADE",
         onDelete: "CASCADE"
+      },
+      products_total:{
+        type: Sequelize.DataTypes.REAL
+      },
+      shipping_total:{
+        type: Sequelize.DataTypes.REAL
+      },
+      shipping_address:{
+      type: Sequelize.DataTypes.STRING
+      },
+      payment_method:{
+        type: Sequelize.DataTypes.STRING
+      },
+      total_discount:{
+        type: Sequelize.DataTypes.REAL
+      },
+      status:{
+        type: Sequelize.DataTypes.STRING
+      },
+      total_paid:{
+        type: Sequelize.DataTypes.REAL
       },
       created_at:{
         type:Sequelize.DataTypes.DATE,
@@ -32,10 +53,9 @@ module.exports = {
         allowNull: false
       }
     });
-    
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('visits');
+    await queryInterface.dropTable('purchases');
   }
 };

@@ -10,7 +10,7 @@ export const LikeController = {
 
         try {
             const like = await LikeService.create(userId, productId)
-            res.status(201).json(like)
+            return res.status(201).json(like)
         } catch (err) {
             if (err instanceof Error){
                 return res.status(400).json({message: err.message})

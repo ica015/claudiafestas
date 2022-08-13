@@ -36,5 +36,23 @@ export const AddressServices = {
                 userId
             }
         })
+    },
+    findById: async (userId: number, id:number)=>{
+        const address = await Address.findOne({
+            where:{
+                id,
+                userId
+            }
+        })
+        return address
+    },
+    findMainAddress: async (userId: number)=>{
+        const address = await Address.findOne({
+            where:{
+                userId,
+                mainAddress: true
+            }
+        })
+        return address
     }
 }

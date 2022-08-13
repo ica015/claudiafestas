@@ -10,17 +10,28 @@ import { Options } from "./Options";
 import { CategoryProduct } from './CategoryProduct'
 import { Favorite } from "./Favorite";
 import { Like } from "./Like";
+import { Purchases } from "./Purchase";
+import { PurchaseItems } from "./PurchaseItem";
 
 User.hasMany(Address, {as:'Address', foreignKey: 'user_id'})
 Address.belongsTo(User)
 
 User.hasMany(Cart)
 Cart.belongsTo(User)
-CartItems.hasMany(Product, {foreignKey:'id'})
-Product.belongsTo(CartItems, {foreignKey:'id'})
+Product.hasMany(CartItems, {as: 'productCartItem', foreignKey: 'product_id'})
+CartItems.belongsTo(Product)
 
 Cart.hasMany(CartItems, {as:'cartitems'})
-CartItems.belongsTo(Cart)
+// CartItems.belongsTo(Cart, {foreignKey: 'cart_id'})
+
+//Product.belongsToMany(Cart, {through: CartItems, as: 'productDetails'})
+Cart.belongsToMany(Product, {through: CartItems})
+
+Cart.belongsToMany(Options, {through: CartItems, as:'cartoptions'} )
+Options.belongsToMany(Cart, {through: CartItems, as:'optionscart'} )
+
+Options.hasMany(CartItems, {as: 'optionscartitems', foreignKey:'option_id'})
+CartItems.belongsTo(Options)
 
 Product.belongsToMany(User, {through: Favorite})
 Product.belongsToMany(User, {through: Like})
@@ -36,27 +47,28 @@ Favorite.belongsTo(Product)
 Product.hasMany(Ask)
 Ask.belongsTo(Product)
 Product.hasMany(Visit)
-Product.hasMany(Options)
-Options.belongsTo(Product)
+Product.hasMany(Options, {as: 'productoptions'})
+Options.belongsTo(Product, {foreignKey:'product_id', as:'optionsproduct'})
 User.hasMany(Visit)
 Visit.belongsTo(Product)
 Visit.belongsTo(User)
 
-Product.belongsToMany(Category, {through: CategoryProduct})
-Product.hasMany(CategoryProduct, {as: 'prodcat', foreignKey: 'product_id'})
+Product.hasMany(CategoryProduct, {as: 'productcategories', foreignKey: 'product_id'})
 
 CategoryProduct.belongsTo(Product)
 CategoryProduct.belongsTo(Category)
 
-Category.belongsToMany(Product, {through: CategoryProduct})
-Category.hasMany(CategoryProduct, {as: 'catproducts', foreignKey: 'category_id'})
+Category.hasMany(CategoryProduct, {as: 'categoryproducts', foreignKey: 'category_id'})
 
+// Purchases.hasOne(User)
+// Purchases.hasOne(Cart)
+// Purchases.hasOne(Address)
+Purchases.hasMany(PurchaseItems, {as:'purchaseItems'})
+// User.belongsTo(Purchases)
+// Cart.belongsTo(Purchases)
+// Address.belongsTo(Purchases)
+PurchaseItems.belongsTo(Purchases)
 
-
-// Category.hasMany(CategoryProduct, {as:'catproducts'})
-// CategoryProduct.belongsTo(Category)
-// Product.hasMany(CategoryProduct, {as: 'product'})
-// CategoryProduct.belongsTo(Product)
 
 
 export {
@@ -71,5 +83,7 @@ export {
     Ask,
     Visit,
     Favorite,
-    Like
+    Like,
+    Purchases,
+    PurchaseItems
 }

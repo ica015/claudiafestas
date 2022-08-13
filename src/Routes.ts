@@ -6,6 +6,7 @@ import { catetegoriesController } from "./controllers/CategoryController"
 import { FavoriteController } from "./controllers/FavoritesController"
 import { LikeController } from "./controllers/LikeController"
 import { productsController } from "./controllers/ProductsController"
+import { PurchaseController } from "./controllers/PurchaseController"
 import { usersController } from "./controllers/UserController"
 import { VisitedController } from "./controllers/VisitedController"
 import { ensureAuth } from "./middlewares/auth"
@@ -47,6 +48,8 @@ router.post('/carrinho', ensureAuth, CartController.novoProduto)
 router.delete('/carrinho/remover_item/:id', ensureAuth, CartController.removerItem)
 router.put('/carrinho', ensureAuth, CartController.updateQuantityItem)
 
+router.post('/confirmar_compra', ensureAuth, PurchaseController.create)
+router.get('/confirmar_compra/:id', ensureAuth, PurchaseController.index)
 
 
 export { router };

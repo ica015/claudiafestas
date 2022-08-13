@@ -14,6 +14,13 @@ module.exports = {
         references:{model:'users', key:'id'},
         onUpdate: 'CASCADE',
         onDelete: "CASCADE"
+      }, 
+      address_id:{
+        type: Sequelize.DataTypes.INTEGER,
+        allowNull: false,
+        references:{model:'address', key:'id'},
+        onUpdate: 'CASCADE',
+        onDelete: "CASCADE"
       },
       status:{
         type: Sequelize.DataTypes.STRING,

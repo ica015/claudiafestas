@@ -2,13 +2,15 @@ import { ResourceWithOptions } from "adminjs";
 import { Address, User, Product, Category, Cart, Ask, Visit, CartItems } from "../models";
 import { CategoryProduct } from "../models/CategoryProduct";
 import { Options } from "../models/Options";
+import { Pix } from "../models/Pix";
 import { AddressResourcesOptions } from "./resources/address";
 import { AskResourceOptions } from "./resources/ask";
 import { CartResourceOptions } from "./resources/cart";
 import { CartItemsResourceOptions } from "./resources/cartItems";
 import { CategoryResourceOptions } from "./resources/category";
-import { catProductsResourceOptions } from "./resources/catproducts";
+import { catProductsResourceOptions } from "./resources/catproduct";
 import { OptionstResourcesOptions } from "./resources/options";
+import { PixResourceptions } from "./resources/pix";
 import { productResourceFeatures, ProductResourcesOptions } from "./resources/product";
 import { userResourceOptions } from "./resources/user";
 import { VisitResourceOptions } from "./resources/visit";
@@ -54,5 +56,9 @@ export const AdminJsResources: ResourceWithOptions[] = [
     {
         resource: Visit,
         options: VisitResourceOptions
+    },
+    {
+        resource: Pix,
+        options: PixResourceptions
     }
 ]

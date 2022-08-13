@@ -19,9 +19,13 @@ export const categoryService = {
     findByIdwithProducts: async (id: string) =>{
         const CategoryWithProducts = await Category.findByPk(id,{
              attributes:['id','name', 'active'],
-            include:{
-                association: 'catproducts'
-            }
+            include:[
+                {
+                    model:CategoryProduct,
+                    as:'categoryproducts'
+                },
+            ]
+
         })
         if (CategoryWithProducts?.active){
             const CategoryInfo = {

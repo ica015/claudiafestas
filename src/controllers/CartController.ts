@@ -1,7 +1,7 @@
 import { Response } from "express";
-import { NUMBER } from "sequelize/types";
 import { authenticatedRequest } from "../middlewares/auth";
 import { Cart } from "../models";
+import { AddressServices } from "../services/AddressService";
 import { CartServices } from "../services/CartService";
 
 export const CartController = {
@@ -10,12 +10,14 @@ export const CartController = {
         const userId = req.user!.id
         const itemDeatis = req.body
         try {
-            const [ cart, createdNew]  = await CartServices.create(userId)
+            const address = await AddressServices.findMainAddress(userId)
+            const addressId = address?.id
+            const [ cart, createdNew]  = await CartServices.create(userId, Number(addressId))
             const newProduct = await CartServices.addProduct({
                 cartId: cart.id,
                 productId: itemDeatis.productId,
                 quantity: itemDeatis.quantity,
-                variation: itemDeatis.variation
+                optionId: itemDeatis.optionId
             })
             return res.json(newProduct)
             // return res.json(newCart)
@@ -61,6 +63,18 @@ export const CartController = {
             
             const updateCartItem = await CartServices.updateQuantityItem(quantity, id, cart!.id)
             return res.json(updateCartItem)
+        } catch (err) {
+            if(err instanceof Error){
+                return res.status(400).json({message: err.message})
+            } 
+        }
+    },
+    updateShippingAddress: async(req:authenticatedRequest, res:Response) =>{
+        const userId = req.user!.id
+        const {cartId, addressId} = req.body
+        try {
+            const updateShippingAdrress = await CartServices.updateAddress(addressId, cartId, userId)
+            return res.json(updateShippingAdrress)
         } catch (err) {
             if(err instanceof Error){
                 return res.status(400).json({message: err.message})

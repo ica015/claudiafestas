@@ -2,16 +2,16 @@
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('cart_items', { 
+    await queryInterface.createTable('purchaseitems', { 
       id: {
         type: Sequelize.DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
       }, 
-      cart_id:{
+      purchase_id:{
         type: Sequelize.DataTypes.INTEGER,
         allowNull: false,
-        references:{model:'carts', key:'id'},
+        references:{model:'purchases', key:'id'},
         onUpdate: 'CASCADE',
         onDelete: "CASCADE"
       },
@@ -22,16 +22,33 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE"
       },
-      quantity:{
-        type: Sequelize.DataTypes.INTEGER,
+      product_name:{
+        type: Sequelize.DataTypes.STRING,
         allowNull:false
       },
-      option_id:{
-        type: Sequelize.DataTypes.INTEGER,
-        allowNull: false,
-        references:{model:"options", key:'id'},
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE"
+      variation:{
+        type: Sequelize.DataTypes.STRING,
+        allowNull:false
+      },
+      quantity:{
+        type: Sequelize.DataTypes.STRING,
+        allowNull:false
+      },
+      price:{
+        type: Sequelize.DataTypes.REAL,
+        allowNull:false
+      },
+      discount:{
+        type: Sequelize.DataTypes.REAL,
+        allowNull:false
+      },
+      total_price:{
+        type: Sequelize.DataTypes.REAL,
+        allowNull:false
+      },
+      shipping_cost:{
+        type: Sequelize.DataTypes.REAL,
+        allowNull:false
       },
       created_at:{
         type:Sequelize.DataTypes.DATE,
@@ -46,7 +63,7 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('cart_items');
+    await queryInterface.dropTable('purchaseitems');
 
   }
 };
