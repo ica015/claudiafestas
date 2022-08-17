@@ -51,10 +51,10 @@ export const PurchaseController = {
                 await PurchaseItemsServices.createPurchaseItems(attributes)
                 await PurchaseServices.updatePrices(purchaseId, updatePrices)
             }
-            // if (paymentMethod === "PIX"){
-            //     const totalPaid = await PurchaseServices.index(purchaseId, userId)
-            //     const pixData = await PixServices.pixGenerator(userName, shipping!, Number(totalPaid?.totalPaid))
-            // }
+            if (paymentMethod === "PIX"){
+                const totalPaid = await PurchaseServices.index(purchaseId, userId)
+                const pixData = await PixServices.pixGenerator(userName, shipping!, Number(totalPaid?.totalPaid))
+            }
 
             // const closeCart = await CartServices.closeCart(hasCart.id, userId)
             

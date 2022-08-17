@@ -1,25 +1,41 @@
 import { Response } from "express";
 import { authenticatedRequest } from "../middlewares/auth";
 import { Cart } from "../models";
+import { CartCreationAttributes, CartInstance } from "../models/Cart";
 import { AddressServices } from "../services/AddressService";
 import { CartServices } from "../services/CartService";
 
 export const CartController = {
     //POST /carrinho
     novoProduto: async (req:authenticatedRequest, res:Response)=>{
-        const userId = req.user!.id
         const itemDeatis = req.body
         try {
-            const address = await AddressServices.findMainAddress(userId)
-            const addressId = address?.id
-            const [ cart, createdNew]  = await CartServices.create(userId, Number(addressId))
-            const newProduct = await CartServices.addProduct({
-                cartId: cart.id,
-                productId: itemDeatis.productId,
-                quantity: itemDeatis.quantity,
-                optionId: itemDeatis.optionId
-            })
-            return res.json(newProduct)
+            if (req.user){
+                const userId = req.user!.id
+                const address = await AddressServices.findMainAddress(userId)
+                const addressId = address!.id
+                const cart  = await CartServices.create(userId, Number(addressId))
+                let cartId = cart[0].id
+                const newProduct = await CartServices.addProduct({
+                    cartId: cartId,
+                    productId: itemDeatis.productId,
+                    quantity: itemDeatis.quantity,
+                    optionId: itemDeatis.optionId
+                })
+                return res.json(newProduct)
+            }else{
+                if (!window.localStorage) throw new Error ("O navegador não suporta o salvamento local, favor logar em sua conta para adicionar itens em seu carrinho de compras")
+                const newProduct = await CartServices.addProductLocalStorage({
+                    cartId: -1,
+                    productId: itemDeatis.productId,
+                    quantity: itemDeatis.quantity,
+                    optionId: itemDeatis.optionId
+                })
+                return res.json(newProduct)
+                
+            }
+            
+            // return res.json(newProduct)
             // return res.json(newCart)
         } catch (err) {
             if(err instanceof Error){

@@ -1,9 +1,11 @@
+import { stringify } from "querystring"
 import { Model } from "sequelize/types"
 import { Cart, CartItems, Options, Product } from "../models"
 import { CartItemsCreationAttributes } from "../models/CartItems"
 
 export const CartServices = {
     create: async (userId: number, addressId: number) =>{
+        
         const cart = await Cart.findOrCreate({
             where:{
                 userId,
@@ -12,6 +14,14 @@ export const CartServices = {
             }
         })
         return cart
+        
+    },
+    cartCreateLocalStorage: async () => {
+        localStorage.setItem('cartId', '-1')
+        localStorage.setItem('userId', '-1')
+        localStorage.setItem('addressId', '-1')
+        localStorage.setItem('status', 'aberto')
+
     },
     findByUser: async (userId: number) =>{
         const cart = await Cart.findOne({
@@ -54,6 +64,40 @@ export const CartServices = {
         }
         const newProduct = await CartItems.create(attributes)
         return newProduct
+    },
+    productExistLocalStorage: async (productId: string) =>{
+        if (!localStorage) return ""
+        for (let i=0; i<localStorage.length;i++){
+            let key = localStorage.key(i)
+            if (key == `product${i}`){
+                let product = JSON.parse(localStorage.getItem(key)!)
+                if ( product.productId == productId){
+                    return key
+                }
+            }
+        }
+        return ""
+    },
+    addProductLocalStorage: async(attributes: CartItemsCreationAttributes) =>{
+        const key = await CartServices.productExistLocalStorage(String(attributes.productId))
+        if (key != ""){
+            let update = {
+                productId:attributes.productId, 
+                quantity: attributes.quantity, 
+                optionId: attributes.optionId
+            }
+            localStorage.setItem(key, JSON.stringify(update))
+            let value = localStorage.getItem(key)
+            return (key + " -> " + value)
+        }else{
+            const newProduct = {
+                productId:attributes.productId, 
+                quantity: attributes.quantity, 
+                optionId: attributes.optionId
+            }
+            localStorage.setItem(key, JSON.stringify(newProduct))
+            return "Produto incluído com sucesso"
+        }
     },
     deleteItem: async (id: number, cartId: number) =>{
         await CartItems.destroy({

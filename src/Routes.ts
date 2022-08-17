@@ -44,7 +44,7 @@ router.put('/usuario/endereco', ensureAuth, AddressController.update)
 router.delete('/usuario/endereco/:id', ensureAuth, AddressController.delete)
 
 router.get('/carrinho', ensureAuth, CartController.listCart)
-router.post('/carrinho', ensureAuth, CartController.novoProduto)
+router.post('/carrinho', CartController.novoProduto)
 router.delete('/carrinho/remover_item/:id', ensureAuth, CartController.removerItem)
 router.put('/carrinho', ensureAuth, CartController.updateQuantityItem)
 
