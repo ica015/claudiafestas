@@ -6,6 +6,9 @@ export const ProductsService = {
         const offset = (page - 1) * perPage
         const {count, rows} = await Product.findAndCountAll({
             where: {active: true},
+            include:{
+                association: "optional"
+            },
             order: fn('RANDOM'),
             limit: perPage,
             offset
@@ -20,7 +23,7 @@ export const ProductsService = {
     findById: async (id: string) =>{
         const showProduct = await Product.findByPk(id,{
             include:{
-                association: "options"
+                association: "optional"
             }
         })
         if (showProduct?.active){

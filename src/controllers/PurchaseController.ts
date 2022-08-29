@@ -56,7 +56,7 @@ export const PurchaseController = {
                 const pixData = await PixServices.pixGenerator(userName, shipping!, Number(totalPaid?.totalPaid))
             }
 
-            // const closeCart = await CartServices.closeCart(hasCart.id, userId)
+            const closeCart = await CartServices.closeCart(hasCart.id, userId)
             
             return res.json(Purchase)
         } catch (err) {
